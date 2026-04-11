@@ -3,152 +3,124 @@
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { FooterNew } from "@/components/sections/FooterNew";
-import { BentoCard } from "@/components/ui/BentoCard";
-import { MagneticButton } from "@/components/ui/MagneticButton";
-import { Heart, CheckCircle2, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { ArrowRight, Check } from "lucide-react";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }
-};
-
-const programColor = "#8B5CF6"; // Violet 500
+const includes = [
+  "Diagnóstico profundo del Ser",
+  "24 sesiones de coaching 1:1",
+  "Rediseño de cultura organizacional",
+  "Desarrollo de liderazgo consciente",
+  "Estrategia de crecimiento alineada",
+  "Grupo de pares exclusivo",
+  "Soporte prioritario",
+  "Workshops mensuales"
+];
 
 export default function RaizPage() {
   return (
     <main className="relative min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-950/20 via-background to-background" />
-        <motion.div
-          className="absolute top-32 right-20 w-96 h-96 rounded-full blur-3xl"
-          style={{ backgroundColor: `${programColor}10` }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-white/5 blur-[120px] rounded-full pointer-events-none" />
         
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto">
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
+          }}
+        />
+
+        <div className="relative z-10 max-w-6xl w-full px-6 py-32">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div 
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8"
-                style={{ 
-                  backgroundColor: `${programColor}10`,
-                  borderColor: `${programColor}30`
-                }}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="mb-6 flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 w-fit"
               >
-                <Heart className="w-4 h-4" style={{ color: programColor }} />
-                <span className="text-sm font-medium" style={{ color: programColor }}>
+                <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-white/80">
                   Programa de 6 meses
                 </span>
-              </div>
+              </motion.div>
 
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6">
-                <span className="text-foreground">Progra</span>
-                <span style={{ color: programColor }}>ma</span>
-                <br />
-                <span style={{ color: programColor }}>Ra</span>
-                <span className="text-foreground">íz</span>
-              </h1>
-
-              <p className="text-xl md:text-2xl text-muted mb-6 leading-relaxed">
-                Integración profunda entre tu Ser y tu empresa. Escala desde la coherencia.
-              </p>
-
-              <p className="text-lg text-muted/70 mb-8">
-                Para empresas de $100K-$500K ARR que quieren crecer sin perder su esencia.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <MagneticButton
-                  href="/contact"
-                  className="px-8 py-4 font-semibold rounded-full flex items-center justify-center gap-2"
-                  style={{ 
-                    backgroundColor: programColor, 
-                    color: "#FFFFFF"
-                  }}
-                >
-                  Profundizar mi transformación
-                  <ArrowRight className="w-5 h-5" />
-                </MagneticButton>
-                <span 
-                  className="text-3xl font-bold flex items-center"
-                  style={{ color: programColor }}
-                >
-                  $8,000 USD
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-8"
+              >
+                Programa<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
+                  Raíz
                 </span>
-              </div>
-            </motion.div>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-lg text-foreground/50 max-w-xl leading-relaxed mb-8"
+              >
+                Integración profunda entre tu Ser y tu empresa. 
+                Para empresas de $100K-$500K ARR.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="flex flex-col sm:flex-row gap-6 items-start sm:items-center"
+              >
+                <a
+                  href="#contact"
+                  className="group px-10 py-4 bg-white text-black rounded-full font-bold hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
+                >
+                  PROFUNDIZAR
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </a>
+                <span className="text-3xl font-bold text-white/80">$8,000 USD</span>
+              </motion.div>
+            </div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="p-8 rounded-xl border border-white/10 bg-white/[0.02]"
             >
-              <BentoCard className="p-8">
-                <h3 
-                  className="text-2xl font-bold mb-6"
-                  style={{ color: programColor }}
-                >
-                  Lo que incluye
-                </h3>
-                <ul className="space-y-4">
-                  {[
-                    "Diagnóstico profundo del Ser",
-                    "24 sesiones de coaching 1:1",
-                    "Rediseño de cultura organizacional",
-                    "Desarrollo de liderazgo consciente",
-                    "Estrategia de crecimiento alineada",
-                    "Grupo de pares exclusivo",
-                    "Soporte prioritario",
-                    "Workshops mensuales"
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <CheckCircle2 
-                        className="w-5 h-5 flex-shrink-0" 
-                        style={{ color: programColor }}
-                      />
-                      <span className="text-foreground/90">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </BentoCard>
+              <h3 className="text-xl font-bold mb-6 text-white/90">Incluye</h3>
+              <ul className="space-y-4">
+                {includes.map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-foreground/60">
+                    <Check size={16} className="text-white/40" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-32 relative overflow-hidden">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse at center, ${programColor}10 0%, transparent 70%)`
-          }}
-        />
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8">
-            Profundiza tu <span style={{ color: programColor }}>transformación</span>
+      {/* CTA */}
+      <section className="relative py-24 px-6 border-t border-white/10">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
+            Profundiza tu<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
+              transformación
+            </span>
           </h2>
-          <MagneticButton
-            href="/contact"
-            className="px-12 py-6 font-bold rounded-full text-lg"
-            style={{ 
-              backgroundColor: programColor, 
-              color: "#FFFFFF"
-            }}
+          <a
+            href="#contact"
+            className="inline-flex px-10 py-4 bg-white text-black rounded-full font-bold hover:scale-105 active:scale-95 transition-all"
           >
-            Comenzar programa Raíz
-            <ArrowRight className="w-5 h-5 inline ml-2" />
-          </MagneticButton>
+            COMENZAR PROGRAMA RAÍZ
+          </a>
         </div>
       </section>
 
