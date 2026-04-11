@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Fingerprint, Database, Brain, CreditCard, HeartPulse, Ticket, ArrowUpRight } from "lucide-react";
 import { TiltCard } from "@/components/ui/TiltCard";
+import { ScrollMarquee } from "@/components/ui/ScrollMarquee";
 
 const services = [
   {
@@ -93,6 +94,17 @@ export function ServicesStitch() {
             </a>
           </motion.div>
         </div>
+
+        {/* Scroll-driven text marquee */}
+        <ScrollMarquee
+          lines={[
+            { text: "Blockchain", reverse: false },
+            { text: "Inteligencia Artificial", reverse: true },
+            { text: "FinTech", reverse: false },
+            { text: "Biometría", reverse: true },
+          ]}
+          className="mb-16"
+        />
 
         {/* Bento Grid with Tilt */}
         <motion.div

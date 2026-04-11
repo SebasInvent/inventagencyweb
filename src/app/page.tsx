@@ -1,3 +1,4 @@
+import { LayoutGroup } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroStitch } from "@/components/sections/HeroStitch";
 import { FeaturesStitch } from "@/components/sections/FeaturesStitch";
@@ -12,18 +13,20 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 export default function Home() {
   return (
-    <main className="relative">
-      <ScrollProgress />
-      <Navbar />
-      <HeroStitch />
-      <FeaturesStitch />
-      <AboutStitch />
-      <ServicesStitch />
-      <MethodologyStitch />
-      <TransformationStitch />
-      <PortfolioStitch />
-      <ContactNew />
-      <FooterNew />
-    </main>
+    <LayoutGroup>
+      <main className="relative">
+        <ScrollProgress />
+        <Navbar />
+        <HeroStitch />
+        <FeaturesStitch />
+        <AboutStitch />
+        <ServicesStitch />
+        <MethodologyStitch />
+        <TransformationStitch />
+        <PortfolioStitch />
+        <ContactNew />
+        <FooterNew />
+      </main>
+    </LayoutGroup>
   );
 }

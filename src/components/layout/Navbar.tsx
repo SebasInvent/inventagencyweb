@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -20,26 +20,37 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { theme } = useTheme();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { scrollY } = useScroll();
+
+  // Detect scroll direction via velocity
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (latest > 100) {
+      setIsScrolled(true);
+      if (latest - previous > 3) {
+        setHidden(true); // scrolling down fast
+      } else if (latest - previous < -3) {
+        setHidden(false); // scrolling up
+      }
+    } else {
+      setIsScrolled(false);
+      setHidden(false);
+    }
+  });
 
   return (
     <>
       <motion.nav
         initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        animate={{ y: hidden ? -100 : 0 }}
+        transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 transition-colors duration-300",
           isScrolled
-            ? "bg-background/80 backdrop-blur-xl"
+            ? "bg-background/80 backdrop-blur-xl border-b border-foreground/5"
             : "bg-transparent"
         )}
       >
@@ -49,6 +60,7 @@ export function Navbar() {
               href="#hero"
               className="flex items-center"
               whileHover={{ scale: 1.05 }}
+              layoutId="brand-logo"
             >
               <Image
                 src={theme === "dark" ? "/logo-white.png" : "/logo-black.png"}

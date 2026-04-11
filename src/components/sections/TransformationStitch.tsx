@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Rocket, Target, Cpu, BarChart3, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useRef } from "react";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { VelocityText } from "@/components/ui/VelocityText";
 
 const phases = [
   {
@@ -71,6 +72,10 @@ export function TransformationStitch() {
   });
   const lineHeight = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
 
+  // GPU filter: desaturate phases as user scrolls past
+  const phaseFilter = useTransform(scrollYProgress, [0.2, 0.6], ["saturate(1) brightness(1)", "saturate(0.6) brightness(0.9)"]);
+  const smoothFilter = useSpring(phaseFilter, { stiffness: 200, damping: 30 });
+
   return (
     <section id="transformacion" ref={sectionRef} className="relative py-32 px-6 overflow-hidden bg-background">
       {/* Background glow */}
@@ -90,7 +95,10 @@ export function TransformationStitch() {
             Programa de Transformación
           </span>
           <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
-            De idea a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#0077AA]">sistema operativo</span>
+            <VelocityText>De idea a</VelocityText>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#0077AA]">
+              <VelocityText>sistema operativo</VelocityText>
+            </span>
           </h2>
           <p className="text-foreground/50 text-lg md:text-xl leading-relaxed">
             Un programa integral que transforma tu negocio digital desde cero. No solo construimos software — arquitectamos ecosistemas digitales que dominan mercados.
@@ -115,8 +123,8 @@ export function TransformationStitch() {
           ))}
         </motion.div>
 
-        {/* Timeline Phases */}
-        <div className="relative">
+        {/* Timeline Phases - with GPU filter on scroll */}
+        <motion.div className="relative" style={{ filter: smoothFilter }}>
           {/* Progress line */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[1px] bg-foreground/10 -translate-x-1/2">
             <motion.div
@@ -178,7 +186,7 @@ export function TransformationStitch() {
               </motion.div>
             ))}
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* CTA */}
         <motion.div

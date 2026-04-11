@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Particles } from "@/components/ui/Particles";
@@ -36,7 +36,19 @@ export function HeroStitch() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+
+  // Multi-layer parallax: 3 layers at different speeds
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "60%"]);   // slowest - background glow
+  const midY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);  // medium - grid + particles
+  const fgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);  // fastest - content
+
+  // GPU-accelerated blur filter on scroll
+  const blurFilter = useTransform(scrollYProgress, [0, 0.6], ["blur(0px)", "blur(8px)"]);
+  const smoothBlur = useSpring(blurFilter, { stiffness: 200, damping: 30 });
+
+  // Desaturation on scroll
+  const saturate = useTransform(scrollYProgress, [0, 0.8], ["saturate(1)", "saturate(0.3)"]);
+
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   useEffect(() => {
@@ -52,8 +64,22 @@ export function HeroStitch() {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
-      {/* Particles */}
-      <Particles className="absolute inset-0 z-0" quantity={60} />
+      {/* Layer 1: Background - slowest parallax */}
+      <motion.div style={{ y: bgY }} className="absolute inset-0">
+        <Particles className="absolute inset-0 z-0" quantity={60} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#00D4FF]/5 blur-[120px] rounded-full pointer-events-none" />
+      </motion.div>
+
+      {/* Layer 2: Mid - grid pattern */}
+      <motion.div style={{ y: midY }} className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
+            backgroundSize: "50px 50px",
+          }}
+        />
+      </motion.div>
 
       {/* Cursor Glow Effect */}
       <div
@@ -63,27 +89,13 @@ export function HeroStitch() {
         }}
       />
 
-      {/* Background Glow */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#00D4FF]/5 blur-[120px] rounded-full pointer-events-none"
-        style={{ y }}
-      />
-
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
-          backgroundSize: "50px 50px",
-        }}
-      />
-
       {/* Noise overlay */}
       <div className="noise-overlay absolute inset-0 pointer-events-none z-[1]" />
 
+      {/* Layer 3: Foreground content - fastest parallax + GPU filter */}
       <motion.div
         className="relative z-10 max-w-5xl w-full text-center flex flex-col items-center px-6 py-32"
-        style={{ opacity }}
+        style={{ y: fgY, opacity, filter: smoothBlur }}
       >
         {/* Badge */}
         <motion.div
@@ -190,9 +202,23 @@ export function HeroStitch() {
         </motion.div>
       </motion.div>
 
+      {/* clipPath reveal image - appears as user scrolls past hero */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[40vh] pointer-events-none z-20"
+        style={{
+          clipPath: useTransform(scrollYProgress, [0.3, 0.7], [
+            "inset(100% 0% 0% 0%)",
+            "inset(0% 0% 0% 0%)"
+          ]),
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#00D4FF]/5 via-transparent to-[#00D4FF]/5" />
+      </motion.div>
+
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 z-30"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >

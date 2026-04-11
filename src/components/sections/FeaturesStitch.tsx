@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Lightbulb, Code, Palette, TrendingUp, Shield, Zap } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
+import { VelocityText } from "@/components/ui/VelocityText";
 
 const features = [
   {
@@ -67,7 +68,8 @@ export function FeaturesStitch() {
             Nuestros Pilares
           </span>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">
-            Tres fuerzas, <span className="text-foreground/30">un resultado</span>
+            <VelocityText>Tres fuerzas,</VelocityText>{" "}
+            <span className="text-foreground/30"><VelocityText>un resultado</VelocityText></span>
           </h2>
         </motion.div>
 
