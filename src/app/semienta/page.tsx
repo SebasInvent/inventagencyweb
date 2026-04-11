@@ -3,7 +3,11 @@
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { FooterNew } from "@/components/sections/FooterNew";
-import { Sparkles, Target, Brain, Heart, CheckCircle2, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { BentoCard } from "@/components/ui/BentoCard";
+import { MagneticButton } from "@/components/ui/MagneticButton";
+import { cn } from "@/lib/utils";
+import { Sparkles, Target, Brain, Heart, Users, CheckCircle2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const fadeInUp = {
@@ -20,6 +24,8 @@ const staggerContainer = {
   }
 };
 
+const programColor = "#10B981"; // Emerald 500
+
 export default function SemientaPage() {
   return (
     <main className="relative min-h-screen bg-background">
@@ -30,7 +36,8 @@ export default function SemientaPage() {
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/20 via-background to-background" />
         <motion.div
-          className="absolute top-32 left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"
+          className="absolute top-32 left-20 w-96 h-96 rounded-full blur-3xl"
+          style={{ backgroundColor: `${programColor}10` }}
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -43,16 +50,25 @@ export default function SemientaPage() {
             className="grid lg:grid-cols-2 gap-16 items-center"
           >
             <div>
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 mb-8">
-                <Sparkles className="w-4 h-4 text-emerald-400" />
-                <span className="text-sm text-emerald-400 font-medium">Programa de 3 meses</span>
+              <motion.div 
+                variants={fadeInUp} 
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8"
+                style={{ 
+                  backgroundColor: `${programColor}10`,
+                  borderColor: `${programColor}30`
+                }}
+              >
+                <Sparkles className="w-4 h-4" style={{ color: programColor }} />
+                <span className="text-sm font-medium" style={{ color: programColor }}>
+                  Programa de 3 meses
+                </span>
               </motion.div>
 
               <motion.h1 variants={fadeInUp} className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6">
                 <span className="text-foreground">Progra</span>
-                <span className="text-emerald-400">ma</span>
+                <span style={{ color: programColor }}>ma</span>
                 <br />
-                <span className="text-emerald-400">Semien</span>
+                <span style={{ color: programColor }}>Semien</span>
                 <span className="text-foreground">ta</span>
               </motion.h1>
 
@@ -66,25 +82,34 @@ export default function SemientaPage() {
               </motion.p>
 
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact">
-                  <motion.button
-                    className="px-8 py-4 bg-emerald-500 text-background font-semibold rounded-full hover:bg-emerald-400 transition-all duration-300 flex items-center justify-center gap-2"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Comenzar mi transformación
-                    <ArrowRight className="w-5 h-5" />
-                  </motion.button>
-                </Link>
-                <span className="text-3xl font-bold text-emerald-400 flex items-center">
+                <MagneticButton 
+                  href="/contact"
+                  className="px-8 py-4 font-semibold rounded-full flex items-center justify-center gap-2"
+                  style={{ 
+                    backgroundColor: programColor, 
+                    color: "#000000"
+                  }}
+                >
+                  Comenzar mi transformación
+                  <ArrowRight className="w-5 h-5" />
+                </MagneticButton>
+                <span 
+                  className="text-3xl font-bold flex items-center"
+                  style={{ color: programColor }}
+                >
                   $3,000 USD
                 </span>
               </motion.div>
             </div>
 
-            <motion.div variants={fadeInUp} className="relative">
-              <div className="bg-surface border border-surface-light rounded-3xl p-8">
-                <h3 className="text-2xl font-bold mb-6 text-emerald-400">Lo que incluye</h3>
+            <motion.div variants={fadeInUp}>
+              <BentoCard className="p-8">
+                <h3 
+                  className="text-2xl font-bold mb-6"
+                  style={{ color: programColor }}
+                >
+                  Lo que incluye
+                </h3>
                 <ul className="space-y-4">
                   {[
                     "Diagnóstico completo del Ser",
@@ -103,12 +128,15 @@ export default function SemientaPage() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * index }}
                     >
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                      <CheckCircle2 
+                        className="w-5 h-5 flex-shrink-0" 
+                        style={{ color: programColor }}
+                      />
                       <span className="text-foreground/90">{item}</span>
                     </motion.li>
                   ))}
                 </ul>
-              </div>
+              </BentoCard>
             </motion.div>
           </motion.div>
         </div>
@@ -124,7 +152,7 @@ export default function SemientaPage() {
             className="text-center mb-20"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Los <span className="text-emerald-400">5 pilares</span> del Ser
+              Los <span style={{ color: programColor }}>5 pilares</span> del Ser
             </h2>
             <p className="text-xl text-muted max-w-2xl mx-auto">
               Fundamentos que transformarán tu relación con el emprendimiento
@@ -137,22 +165,22 @@ export default function SemientaPage() {
               { icon: Target, title: "Propósito", desc: "Conecta con tu 'por qué' más profundo. Tu empresa como expresión de quien eres." },
               { icon: Heart, title: "Integridad", desc: "Alinea lo que piensas, sientes, dices y haces. Coherencia interna-externa." },
               { icon: Sparkles, title: "Abundancia", desc: "Cambia de mentalidad de escasez a expansión. Hay suficiente para todos." },
-              { icon: Brain, title: "Resiliencia", desc: "Desarrolla la capacidad de volver al centro después del caos." }
+              { icon: Users, title: "Resiliencia", desc: "Desarrolla la capacidad de volver al centro después del caos." }
             ].map((pillar, index) => (
-              <motion.div
+              <BentoCard
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-surface border border-surface-light rounded-2xl p-6 hover:border-emerald-500/50 transition-colors duration-300 group"
+                delay={index * 0.1}
+                className="group"
               >
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <pillar.icon className="w-6 h-6 text-emerald-400" />
+                <div 
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+                  style={{ backgroundColor: `${programColor}20` }}
+                >
+                  <pillar.icon className="w-6 h-6" style={{ color: programColor }} />
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-foreground">{pillar.title}</h3>
                 <p className="text-muted text-sm">{pillar.desc}</p>
-              </motion.div>
+              </BentoCard>
             ))}
           </div>
         </div>
@@ -161,7 +189,12 @@ export default function SemientaPage() {
       {/* CTA Section */}
       <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-surface to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-500/10 via-transparent to-transparent" />
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `radial-gradient(ellipse at center, ${programColor}10 0%, transparent 70%)`
+          }}
+        />
         
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto text-center">
           <motion.div
@@ -170,22 +203,23 @@ export default function SemientaPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-8">
-              Tu transformación <span className="text-emerald-400">comienza hoy</span>
+              Tu transformación <span style={{ color: programColor }}>comienza hoy</span>
             </h2>
             <p className="text-xl text-muted max-w-2xl mx-auto mb-12">
               La mejor inversión que puedes hacer no es en tu empresa. 
               Es en la persona que construye esa empresa.
             </p>
-            <Link href="/contact">
-              <motion.button
-                className="px-12 py-6 bg-emerald-500 text-background font-bold rounded-full text-lg hover:bg-emerald-400 transition-all hover:scale-105"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Comenzar mi transformación
-                <ArrowRight className="w-5 h-5 inline ml-2" />
-              </motion.button>
-            </Link>
+            <MagneticButton
+              href="/contact"
+              className="px-12 py-6 font-bold rounded-full text-lg"
+              style={{ 
+                backgroundColor: programColor, 
+                color: "#000000"
+              }}
+            >
+              Comenzar mi transformación
+              <ArrowRight className="w-5 h-5 inline ml-2" />
+            </MagneticButton>
           </motion.div>
         </div>
       </section>
