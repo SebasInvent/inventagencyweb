@@ -11,9 +11,9 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 const navLinks = [
   { name: "Inicio", href: "#hero" },
   { name: "Servicios", href: "#services" },
+  { name: "Transformación", href: "#transformacion" },
   { name: "Portafolio", href: "#portfolio" },
   { name: "Nosotros", href: "#about" },
-  { name: "Metodología", href: "#methodology" },
   { name: "Contacto", href: "#contact" },
 ];
 
@@ -82,7 +82,7 @@ export function Navbar() {
               </motion.a>
               <motion.a
                 href="#contact"
-                className="px-5 py-2 bg-white text-black text-sm font-medium hover:bg-white/90 transition-colors"
+                className="px-5 py-2 bg-[#00D4FF] text-black text-sm font-bold hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

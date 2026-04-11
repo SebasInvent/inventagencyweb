@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight, Search, Lightbulb, Code2, Rocket, Repeat, CheckCircle2 } from "lucide-react";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { BentoCard } from "@/components/ui/BentoCard";
 
 const phases = [
   {
@@ -70,11 +72,11 @@ export function MethodologyStitch() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-sm font-medium text-foreground/50 uppercase tracking-wider mb-4 block">
+            <span className="text-[#00D4FF]/60 text-sm font-bold uppercase tracking-[0.2em] mb-4 block">
               Nuestra Metodología
             </span>
             <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
-              Proceso <span className="text-foreground/30">Estructurado</span>
+              Proceso <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#0077AA]">Estructurado</span>
             </h2>
             <p className="text-lg text-foreground/60 leading-relaxed">
               Un enfoque sistemático que garantiza resultados excepcionales. 
@@ -96,14 +98,14 @@ export function MethodologyStitch() {
             >
               <div className="grid lg:grid-cols-[120px_1fr_300px] gap-8 items-start p-8 rounded-xl border border-foreground/10 bg-foreground/[0.02] hover:bg-white hover:border-white transition-all duration-500">
                 {/* Number */}
-                <div className="text-4xl font-bold text-foreground/20 group-hover:text-black/20 transition-colors">
+                <div className="text-4xl font-bold text-[#00D4FF]/20 group-hover:text-black/20 transition-colors">
                   {phase.number}
                 </div>
 
                 {/* Content */}
                 <div>
                   <div className="flex items-center gap-3 mb-2">
-                    <phase.icon className="w-6 h-6 text-foreground group-hover:text-black transition-colors" />
+                    <phase.icon className="w-6 h-6 text-[#00D4FF] group-hover:text-black transition-colors" />
                     <h3 className="text-2xl font-bold group-hover:text-black transition-colors">{phase.title}</h3>
                   </div>
                   <p className="text-sm text-foreground/50 group-hover:text-black/60 transition-colors mb-2">
@@ -125,7 +127,7 @@ export function MethodologyStitch() {
                         key={step}
                         className="text-sm text-foreground/50 group-hover:text-black/60 transition-colors flex items-center gap-2 lg:justify-end"
                       >
-                        <CheckCircle2 size={14} className="opacity-50" />
+                        <CheckCircle2 size={14} className="text-[#00D4FF]/50" />
                         {step}
                       </li>
                     ))}
@@ -153,17 +155,10 @@ export function MethodologyStitch() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {principles.map((principle, index) => (
-              <motion.div
-                key={principle.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-6 rounded-xl border border-foreground/10 bg-foreground/[0.02]"
-              >
+              <BentoCard key={principle.title} delay={index * 0.1}>
                 <h4 className="text-lg font-bold mb-2">{principle.title}</h4>
                 <p className="text-sm text-foreground/50">{principle.description}</p>
-              </motion.div>
+              </BentoCard>
             ))}
           </div>
         </div>
@@ -184,7 +179,7 @@ export function MethodologyStitch() {
             {["Next.js", "React", "TypeScript", "Node.js", "PostgreSQL", "Supabase", "Tailwind CSS", "Framer Motion"].map((tech) => (
               <span
                 key={tech}
-                className="px-4 py-2 rounded-full border border-foreground/20 text-sm font-medium hover:bg-white hover:text-black transition-colors"
+                className="px-4 py-2 rounded-full border border-[#00D4FF]/20 text-sm font-medium hover:bg-[#00D4FF] hover:text-black transition-colors"
               >
                 {tech}
               </span>

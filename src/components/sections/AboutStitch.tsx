@@ -1,13 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Users, Target, Zap, Globe, Award, TrendingUp } from "lucide-react";
+import { ArrowUpRight, Target, Zap, Globe, Award } from "lucide-react";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const stats = [
-  { number: "50+", label: "Proyectos Entregados" },
-  { number: "30+", label: "Clientes Satisfechos" },
-  { number: "5+", label: "Años de Experiencia" },
-  { number: "100%", label: "Compromiso" },
+  { number: 50, suffix: "+", label: "Proyectos Entregados" },
+  { number: 30, suffix: "+", label: "Clientes Satisfechos" },
+  { number: 5, suffix: "+", label: "Años de Experiencia" },
+  { number: 100, suffix: "%", label: "Compromiso" },
 ];
 
 const values = [
@@ -38,9 +41,22 @@ const team = [
   { name: "Equipo", role: "Desarrolladores Elite", initials: "EQ" },
 ];
 
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] } },
+};
+
 export function AboutStitch() {
   return (
     <section id="about" className="relative py-32 px-6 overflow-hidden bg-background">
+      {/* Background glow */}
+      <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-[#00D4FF]/3 blur-[150px] rounded-full pointer-events-none" />
+
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="grid lg:grid-cols-2 gap-16 mb-32">
@@ -50,11 +66,11 @@ export function AboutStitch() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-sm font-medium text-foreground/50 uppercase tracking-wider mb-4 block">
+            <span className="text-[#00D4FF]/60 text-sm font-bold uppercase tracking-[0.2em] mb-4 block">
               Sobre Nosotros
             </span>
             <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9]">
-              Somos <span className="text-foreground/30">InventAgency</span>
+              Somos <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#0077AA]">InventAgency</span>
             </h2>
           </motion.div>
 
@@ -66,36 +82,39 @@ export function AboutStitch() {
             className="flex flex-col justify-center"
           >
             <p className="text-lg text-foreground/60 leading-relaxed mb-6">
-              Nacimos con una misión clara: transformar la forma en que las empresas interactúan con la tecnología. 
+              Nacimos con una misión clara: transformar la forma en que las empresas interactúan con la tecnología.
               No somos solo una agencia de desarrollo; somos arquitectos de soluciones digitales de alto impacto.
             </p>
             <p className="text-lg text-foreground/60 leading-relaxed">
-              Desde Bogotá, Colombia, trabajamos con clientes globales para crear experiencias digitales 
+              Desde Bogotá, Colombia, trabajamos con clientes globales para crear experiencias digitales
               que no solo funcionan perfectamente, sino que también impresionan.
             </p>
           </motion.div>
         </div>
 
-        {/* Stats */}
+        {/* Stats with Animated Counters */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-32"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-32"
         >
-          {stats.map((stat, index) => (
-            <div
+          {stats.map((stat) => (
+            <motion.div
               key={stat.label}
-              className="text-center p-8 rounded-xl border border-foreground/10 bg-foreground/[0.02]"
+              variants={fadeUp}
+              className="text-center p-8 rounded-xl border border-foreground/10 bg-foreground/[0.02] hover:border-[#00D4FF]/20 transition-all duration-500"
             >
-              <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">{stat.number}</div>
-              <div className="text-sm text-foreground/50 uppercase tracking-wider">{stat.label}</div>
-            </div>
+              <div className="text-4xl md:text-5xl font-bold text-[#00D4FF] mb-2">
+                <AnimatedCounter target={stat.number} suffix={stat.suffix} />
+              </div>
+              <div className="text-xs text-foreground/40 uppercase tracking-[0.15em]">{stat.label}</div>
+            </motion.div>
           ))}
         </motion.div>
 
-        {/* Values */}
+        {/* Values with Spotlight */}
         <div className="mb-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -110,24 +129,25 @@ export function AboutStitch() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group p-8 rounded-xl border border-foreground/10 bg-foreground/[0.02] hover:bg-white hover:border-white hover:text-black transition-all duration-500"
-              >
-                <value.icon className="w-8 h-8 mb-4 text-foreground group-hover:text-black transition-colors" />
-                <h4 className="text-xl font-bold mb-2 group-hover:text-black transition-colors">{value.title}</h4>
-                <p className="text-sm text-foreground/50 group-hover:text-black/60 transition-colors">
-                  {value.description}
-                </p>
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {values.map((value) => (
+              <motion.div key={value.title} variants={fadeUp}>
+                <SpotlightCard className="h-full p-8 group hover:bg-white hover:border-white transition-all duration-500">
+                  <value.icon className="w-8 h-8 mb-4 text-[#00D4FF] group-hover:text-black transition-colors" />
+                  <h4 className="text-xl font-bold mb-2 group-hover:text-black transition-colors">{value.title}</h4>
+                  <p className="text-sm text-foreground/50 group-hover:text-black/60 transition-colors">
+                    {value.description}
+                  </p>
+                </SpotlightCard>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Team */}
@@ -145,24 +165,23 @@ export function AboutStitch() {
             </p>
           </motion.div>
 
-          <div className="flex justify-center gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="w-32 h-32 rounded-full bg-foreground/10 flex items-center justify-center mb-4 mx-auto border border-foreground/20">
-                  <span className="text-3xl font-bold text-foreground/50">{member.initials}</span>
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="flex justify-center gap-8"
+          >
+            {team.map((member) => (
+              <motion.div key={member.name} variants={fadeUp} className="text-center">
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#00D4FF]/10 to-[#0077AA]/10 flex items-center justify-center mb-4 mx-auto border border-[#00D4FF]/20">
+                  <span className="text-3xl font-bold text-[#00D4FF]/60">{member.initials}</span>
                 </div>
                 <h4 className="text-xl font-bold">{member.name}</h4>
-                <p className="text-foreground/50">{member.role}</p>
+                <p className="text-foreground/50 text-sm">{member.role}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* CTA */}
@@ -176,16 +195,16 @@ export function AboutStitch() {
           <h3 className="text-3xl md:text-4xl font-bold mb-6">
             ¿Listo para trabajar juntos?
           </h3>
-          <p className="text-foreground/50 mb-8 max-w-2xl mx-auto">
+          <p className="text-foreground/50 mb-10 max-w-2xl mx-auto">
             Tu proyecto merece lo mejor. Hablemos sobre cómo podemos llevar tu visión al siguiente nivel.
           </p>
-          <a
+          <MagneticButton
             href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold hover:scale-105 transition-transform"
+            className="bg-white text-black rounded-full font-bold gap-2"
           >
             Iniciar Proyecto
             <ArrowUpRight size={20} />
-          </a>
+          </MagneticButton>
         </motion.div>
       </div>
     </section>

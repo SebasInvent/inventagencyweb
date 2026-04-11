@@ -19,7 +19,7 @@ export function FooterNew() {
               transition={{ duration: 0.6 }}
             >
               <h3 className="text-2xl font-bold text-foreground mb-4">
-                Invent<span className="text-foreground/50">Agency</span>
+                Invent<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#0077AA]">Agency</span>
               </h3>
               <p className="text-foreground/60 max-w-md">
                 Agencia de élite que transforma visiones en realidades digitales.
@@ -39,11 +39,11 @@ export function FooterNew() {
                 Navegación
               </h4>
               <ul className="space-y-2">
-                {["Inicio", "Servicios", "Portfolio", "Contacto"].map((item) => (
+                {["Inicio", "Servicios", "Transformación", "Portfolio", "Contacto"].map((item) => (
                   <li key={item}>
                     <a
-                      href={`#${item.toLowerCase()}`}
-                      className="text-foreground/60 hover:text-foreground transition-colors text-sm"
+                      href={`#${item === "Transformación" ? "transformacion" : item.toLowerCase()}`}
+                      className="text-foreground/60 hover:text-[#00D4FF] transition-colors text-sm"
                     >
                       {item}
                     </a>
@@ -77,9 +77,9 @@ export function FooterNew() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-lg bg-foreground/5 hover:bg-foreground/10 border border-border hover:border-foreground flex items-center justify-center transition-all group"
+                    className="w-10 h-10 rounded-lg bg-foreground/5 hover:bg-[#00D4FF]/10 border border-border hover:border-[#00D4FF]/30 flex items-center justify-center transition-all group"
                   >
-                    <social.icon className="w-5 h-5 text-foreground/60 group-hover:text-foreground transition-colors" />
+                    <social.icon className="w-5 h-5 text-foreground/60 group-hover:text-[#00D4FF] transition-colors" />
                   </a>
                 ))}
               </div>

@@ -31,7 +31,7 @@ export function ContactNew() {
               className="text-4xl md:text-5xl font-bold text-foreground mb-6"
             >
               Iniciemos tu{" "}
-              <span className="bg-gradient-to-r from-white via-white/70 to-white/40 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#00D4FF] via-[#00A3CC] to-[#0077AA] bg-clip-text text-transparent">
                 Proyecto
               </span>
             </motion.h2>
@@ -48,7 +48,7 @@ export function ContactNew() {
 
             <div className="space-y-6">
               {[
-                { icon: Mail, label: "Email", value: "inventagency@outlook.com" },
+                { icon: Mail, label: "Email", value: "sebastian@inventagency.co" },
                 { icon: Phone, label: "Teléfono", value: "+57 310 7556872" },
                 { icon: MessageCircle, label: "Telegram", value: "@InventAgencyBot" },
                 { icon: MapPin, label: "Ubicación", value: "Global Remote" },
@@ -61,8 +61,8 @@ export function ContactNew() {
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                   className="flex items-center gap-4"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-foreground/10 flex items-center justify-center">
-                    <item.icon className="w-5 h-5 text-foreground" />
+                  <div className="w-12 h-12 rounded-lg bg-[#00D4FF]/10 flex items-center justify-center">
+                    <item.icon className="w-5 h-5 text-[#00D4FF]" />
                   </div>
                   <div>
                     <div className="text-sm text-foreground/50">{item.label}</div>
@@ -144,7 +144,7 @@ export function ContactNew() {
 
                 <button
                   type="submit"
-                  className="w-full px-8 py-4 bg-white text-black font-medium hover:bg-white/90 transition-colors flex items-center justify-center gap-2"
+                  className="w-full px-8 py-4 bg-[#00D4FF] text-black font-bold hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all flex items-center justify-center gap-2 rounded-lg"
                 >
                   Enviar Mensaje
                   <Send size={18} />
